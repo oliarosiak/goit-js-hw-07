@@ -24,28 +24,45 @@ import { galleryItems } from './gallery-items.js';
   </a>
 </div> */
 
-const galleryList = document.querySelector('.gallery');
+const galleryList = document.querySelector('div.gallery');
 
-const foo = ({ description, preview, original }) => {
+const markupGallery = galleryItems.map(createGalleryItems).join('');
+galleryList.insertAdjacentHTML('afterbegin', markupGallery);
+
+galleryList.addEventListener('click', callBigImage);
+
+function createGalleryItems({ description, preview, original }) {
     return `
     <div class="gallery__item">
-    <a class="gallery__link" href="${original}">
-    <img
-      class="gallery__image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-    />
-    </a>
+        <a class="gallery__link" href="${original}">
+            <img
+            class="gallery__image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
+            />
+        </a>
     </div>
     `;
 }
 
+function callBigImage(event) {
+    event.preventDefault();
 
-console.log(foo(galleryItems[0]));
+    const bigImageURL = event.target.dataset.source;
+    //console.log(bigImageURL);    
 
-const bar = galleryItems.map(foo).join('');
-galleryList.insertAdjacentHTML('afterbegin', bar);
+    //Перевірка може бути ще така: event.target.nodeName !==`IMG` => бачила в Репети у вебінарі
+    if (event.currentTarget === event.target) {
+        console.log('Фуууу, мимо');
+        return;
+    }
+    
+    const bigImage = basicLightbox.create(`
+        <img src="${bigImageURL}" width="800" height="600">
+    `)
+        
+    const foo = bigImage.show();
+    console.log('Молодєц, попала');
+};
 
-console.log(bar);
-console.log(galleryItems);
