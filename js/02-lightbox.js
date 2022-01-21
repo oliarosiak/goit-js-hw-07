@@ -24,10 +24,10 @@ import { galleryItems } from './gallery-items.js';
 
 const galleryList = document.querySelector('ul.gallery');
 
-const galleryCards = galleryItems.map(createGallery).join('');
+const galleryCards = galleryItems.map(createGalleryCard).join('');
 galleryList.insertAdjacentHTML('afterbegin', galleryCards);
 
-function createGallery({ description, preview, original }) { 
+function createGalleryCard({ description, preview, original }) { 
     return `
     <a class="gallery__item" href="${original}">
         <img class="gallery__image" src="${preview}" alt="${description}" />
@@ -35,48 +35,4 @@ function createGallery({ description, preview, original }) {
     `
 };
 
-let gallery = new SimpleLightbox('.gallery a', { captionsData: "alt", captionDelay:250,});
-// let gallery = new SimpleLightbox('.gallery a');
-
-// gallery.on('show.simplelightbox', function (event) {
-//     event.captionsData: "alt",
-//     event.captionDelay: 250 
-// });
-
-
-
-// SimpleLightbox(captions);
-    // console.log('target', event.target);
-    // console.log('cur.target', event.currentTarget);
-    // const foo = document.querySelectorAll('img.gallery__image');
-    // console.log(foo.alt);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function onGalleryItemClick(event) {
-//     event.preventDefault();
-//     console.log(event.currentTarget);
-//     console.log(event.target);
-
-    
-//     console.log('сімпл лайтбокс', gallery);
-// }
-
-
-
-//console.log('галері ліст', galleryList);
-
-
-
-//console.log('перелік галереї', galleryItems);
+let gallerySlider = new SimpleLightbox('.gallery a', { captionsData: "alt", captionDelay: 250, });
